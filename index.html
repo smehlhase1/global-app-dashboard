@@ -517,5 +517,21 @@
   </div>
 
 </div>
+<script>
+(function() {
+  const MONTHS = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+  const today = new Date(); today.setHours(0,0,0,0);
+  document.querySelectorAll('.epic-list li').forEach(function(li) {
+    const datesEl = li.querySelector('.edates');
+    const badgeEl = li.querySelector('.badge');
+    if (!datesEl || !badgeEl) return;
+    if (badgeEl.classList.contains('badge-done')) return;
+    const m = datesEl.textContent.match(/→\s*(\d+)\s+([A-Z][a-z]{2})/);
+    if (!m) return;
+    const endDate = new Date(today.getFullYear(), MONTHS[m[2]], parseInt(m[1]));
+    if (endDate < today) datesEl.style.color = '#dc2626';
+  });
+})();
+</script>
 </body>
 </html>
