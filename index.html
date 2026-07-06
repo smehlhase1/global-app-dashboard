@@ -49,7 +49,7 @@
   .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
 
   /* ── Summary bar ── */
-  .summary-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 32px; }
+  .summary-bar { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 32px; }
   .summary-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
   .summary-card .num  { font-size: 26px; font-weight: 700; line-height: 1; }
   .summary-card .lbl  { font-size: 12px; color: var(--muted); margin-top: 4px; }
@@ -126,6 +126,53 @@
 
   /* On-hold banner */
   .hold-banner { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 6px; padding: 6px 10px; font-size: 12px; color: #5b21b6; margin-top: 8px; display: flex; align-items: center; gap: 6px; }
+
+  /* Done epics collapsible */
+  .done-toggle { margin-top: 10px; border-top: 1px dashed #d1fae5; padding-top: 6px; }
+  .done-toggle summary { font-size: 11px; font-weight: 600; color: var(--done); cursor: pointer; padding: 2px 0; list-style: none; display: flex; align-items: center; gap: 5px; user-select: none; }
+  .done-toggle summary::-webkit-details-marker { display: none; }
+  .done-toggle summary .dt-arrow { font-size: 8px; transition: transform .15s; display: inline-block; }
+  details.done-toggle[open] summary .dt-arrow { transform: rotate(90deg); }
+  .done-toggle .epic-list li { opacity: .65; }
+  .done-toggle .epic-list .badge-done { opacity: 1; }
+
+  /* ── Key Risks & Observations ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .risk-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .risk-card-head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  .risk-icon { font-size: 15px; flex-shrink: 0; }
+  .risk-card-head .risk-title { font-size: 13px; font-weight: 700; flex: 1; }
+  .risk-sev { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+  .sev-high   { background: var(--red-lt);  color: var(--red); }
+  .sev-medium { background: var(--wip-lt);  color: var(--wip); }
+  .sev-low    { background: var(--todo-lt); color: var(--todo); }
+  .sev-info   { background: var(--blue-lt); color: var(--blue); }
+  .risk-body { padding: 10px 14px; font-size: 12px; color: #374151; line-height: 1.55; }
+  .risk-body .risk-jira { font-size: 10px; color: var(--muted); margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+  .risk-body .rj-tag { background: #f3f4f6; border-radius: 4px; padding: 1px 6px; }
+
+  /* Expandable epic tasks */
+  .epic-list li.has-tasks { padding: 0; }
+  details.epic-expand { width: 100%; }
+  details.epic-expand > summary { display: flex; align-items: center; gap: 8px; padding: 5px 0; cursor: pointer; list-style: none; font-size: 12px; }
+  details.epic-expand > summary::-webkit-details-marker { display: none; }
+  .exp-arrow { font-size: 9px; color: var(--muted); transition: transform .15s; flex-shrink: 0; }
+  details.epic-expand[open] > summary .exp-arrow { transform: rotate(90deg); }
+  .task-list { list-style: none; background: #f9fafb; border-radius: 6px; margin: 2px 0 6px 18px; padding: 2px 0; border: 1px solid #f3f4f6; }
+  .task-list li { display: flex; align-items: center; gap: 6px; padding: 4px 8px; font-size: 11px; color: #374151; border-bottom: 1px solid #f3f4f6; }
+  .task-list li:last-child { border-bottom: none; }
+  .task-list .tk-key { font-family: monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+  .task-list .tk-title { flex: 1; color: #4b5563; }
+  .task-list .tk-who { font-size: 10px; color: var(--muted); flex-shrink: 0; margin-right: 2px; }
+  .task-list .badge { font-size: 9px; padding: 1px 5px; margin-left: auto; }
+
+  /* Search */
+  .search-wrap { margin-bottom: 24px; position: relative; }
+  .search-wrap input { width: 100%; padding: 10px 16px 10px 42px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; background: #fff; color: var(--text); outline: none; transition: border-color .15s, box-shadow .15s; }
+  .search-wrap input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.1); }
+  .search-wrap .si { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; pointer-events: none; }
+  .search-wrap .sc { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--muted); }
+  .s-hide { display: none !important; }
 </style>
 </head>
 <body>
@@ -135,7 +182,7 @@
     <div class="inner-left">
       <div class="eyebrow">PROD-12278 · Theme #8</div>
       <h1>Allianz Global App — Progress Dashboard</h1>
-      <p class="sub">Theme owner: Sascha Mehlhase · Initiative owner: Sarah Martins · Last data pull: 5 Jul 2026</p>
+      <p class="sub">Theme owner: Sascha Mehlhase · Initiative owner: Sarah Martins · Last data pull: 6 Jul 2026</p>
       <div class="meta">
         <span class="meta-item"><span class="dot dot-done"></span> Done / Delivered</span>
         <span class="meta-item"><span class="dot dot-wip"></span> In Progress</span>
@@ -162,6 +209,13 @@
 
 <div class="container">
 
+  <!-- Search -->
+  <div class="search-wrap">
+    <span class="si">🔍</span>
+    <input type="text" id="dash-search" placeholder="Search tickets, epics, initiatives, tasks, assignees…" autocomplete="off">
+    <span class="sc" id="search-count"></span>
+  </div>
+
   <!-- Summary bar -->
   <div class="summary-bar">
     <div class="summary-card blue">
@@ -173,15 +227,19 @@
       <div class="lbl">In Progress</div>
     </div>
     <div class="summary-card gray">
-      <div class="num">48</div>
+      <div class="num">79</div>
       <div class="lbl">Total Epics</div>
     </div>
+    <div class="summary-card green">
+      <div class="num">26</div>
+      <div class="lbl">Epics Done</div>
+    </div>
     <div class="summary-card amber">
-      <div class="num">17</div>
+      <div class="num">18</div>
       <div class="lbl">Epics In Progress</div>
     </div>
     <div class="summary-card gray">
-      <div class="num">11</div>
+      <div class="num">14</div>
       <div class="lbl">FlowForge AI Tickets</div>
     </div>
   </div>
@@ -203,24 +261,190 @@
         </div>
       </div>
       <div class="prog-wrap">
-        <div class="prog-label"><span>Epic progress</span><span>0 done · 2 in progress · 7 to do</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div>
+        <div class="prog-label"><span>Epic progress</span><span>17 done · 8 in progress · 8 to do</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:52%"></div></div>
       </div>
       <div class="epic-grid" style="margin-top:12px">
         <ul class="epic-list">
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13198" target="_blank">PROD-13198</a><span class="etitle">PI-II Go-live preparation</span><span class="edates">11 Jun → 29 Jun</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12957" target="_blank">PROD-12957</a><span class="etitle">PI-II Lookups for data lists</span><span class="edates">27 Apr → 20 Jul</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13311" target="_blank">PROD-13311</a><span class="etitle">PI-III Motor Certificate Improvements</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13310" target="_blank">PROD-13310</a><span class="etitle">PI-III Claims Journey Screen</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-</ul>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12481" target="_blank">PROD-12481</a><span class="etitle">PI-III Mailbox-List</span><span class="edates">6 Jul → 28 Jul</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5835" target="_blank">CIL-5835</a><span class="tk-title">[CHOE] API Draft: Get Mailbox Document</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12482" target="_blank">PROD-12482</a><span class="etitle">PI-III Mailbox-Item</span><span class="edates">6 Jul → 28 Jul</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12471" target="_blank">PROD-12471</a><span class="etitle">PI-III Notifications</span><span class="edates">29 Jul → 11 Aug</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13198" target="_blank">PROD-13198</a><span class="etitle">PI-II Go-live preparation</span><span class="edates">11 Jun → 29 Jun</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5531" target="_blank">CIL-5531</a><span class="tk-title">Create Grafana dashboard for global-app incoming gRPC</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12957" target="_blank">PROD-12957</a><span class="etitle">PI-II Lookups for data lists</span><span class="edates">27 Apr → 20 Jul</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5572" target="_blank">CIL-5572</a><span class="tk-title">Normalise BE Lookup Values to SISU format</span><span class="tk-who">Saparbaev</span><span class="badge badge-wip">In Progress</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5664" target="_blank">CIL-5664</a><span class="tk-title">Incorrect key in Opensearch for lookups (Motor certificate)</span><span class="tk-who">Sotnikov</span><span class="badge badge-todo">To Do</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5654" target="_blank">CIL-5654</a><span class="tk-title">Incorrect key — Payment Frequency lookup</span><span class="tk-who">Skoryk</span><span class="badge badge-wip">Waiting Merge</span></li>
+            </ul>
+          </details></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12484" target="_blank">PROD-12484</a><span class="etitle">PI-II Motor Insurance Certificate Questionnaire</span><span class="edates">11 May → 29 Jul</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12800" target="_blank">PROD-12800</a><span class="etitle">PI-II Payment Frequency</span><span class="edates">15 Apr → 31 Jul</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12805" target="_blank">PROD-12805</a><span class="etitle">PI-II Green Card</span><span class="edates">1 May → 1 Jun</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12878" target="_blank">PROD-12878</a><span class="etitle">Time Tracking</span><span class="edates">1 Jun → 31 Jul</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+        </ul>
         <ul class="epic-list">
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13308" target="_blank">PROD-13308</a><span class="etitle">PI-III Customer Bank Account</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13307" target="_blank">PROD-13307</a><span class="etitle">PI-III All LOBs Quality Assurance</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13306" target="_blank">PROD-13306</a><span class="etitle">PI-III Accident &amp; Group Health</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13304" target="_blank">PROD-13304</a><span class="etitle">PI-III Customer Profile Delete</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13301" target="_blank">PROD-13301</a><span class="etitle">PI-III Asynch Process Communication</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-</ul>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13310" target="_blank">PROD-13310</a><span class="etitle">PI-III Claims Journey Screen</span><span class="edates">8 Jul → 11 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13308" target="_blank">PROD-13308</a><span class="etitle">PI-III Customer Bank Account</span><span class="edates">6 Jul → 11 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4885" target="_blank">CIL-4885</a><span class="tk-title">API draft: Lookups Bank Account Ineligibility Reason Meta</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5205" target="_blank">CIL-5205</a><span class="tk-title">e2e: Extend List Lookups for Bank Account Ineligibility</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5847" target="_blank">CIL-5847</a><span class="tk-title">Provider: Extend bank account management with Update</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13307" target="_blank">PROD-13307</a><span class="etitle">PI-III All LOBs Quality Assurance</span><span class="edates">6 Jul → 28 Jul</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5720" target="_blank">CIL-5720</a><span class="tk-title">API draft: Extend product_type enum on Get Policy endpoint</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5721" target="_blank">CIL-5721</a><span class="tk-title">e2e: Extend product_type enum on Get Policy endpoint</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13306" target="_blank">PROD-13306</a><span class="etitle">PI-III Accident &amp; Group Health</span><span class="edates">26 Aug → 8 Sep</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13304" target="_blank">PROD-13304</a><span class="etitle">PI-III Customer Profile Delete</span><span class="edates">29 Jul → 11 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5673" target="_blank">CIL-5673</a><span class="tk-title">API draft: Customer Profile Delete</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13301" target="_blank">PROD-13301</a><span class="etitle">PI-III Asynch Process Communication</span><span class="edates">6 Jul → 28 Jul</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5646" target="_blank">CIL-5646</a><span class="tk-title">Handle async 202 responses + job eligibility (Motor)</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5649" target="_blank">CIL-5649</a><span class="tk-title">Handle async 202 responses + job eligibility (Property)</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12819" target="_blank">PROD-12819</a><span class="etitle">PI-III Multiple Customer Numbers</span><span class="edates">11 Aug → 25 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13508" target="_blank">PROD-13508</a><span class="etitle">PI-III Loyalty Promotion Codes</span><span class="edates">26 Aug → 8 Sep</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+        </ul>
       </div>
+      <details class="done-toggle">
+        <summary><span class="dt-arrow">▶</span> 17 completed epics</summary>
+        <div class="epic-grid" style="margin-top:6px">
+          <ul class="epic-list">
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12287" target="_blank">PROD-12287</a><span class="etitle">List Policy Integration</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5841" target="_blank">CIL-5841</a><span class="tk-title">Extend policy list with effective_date</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5645" target="_blank">CIL-5645</a><span class="tk-title">Integrate with v0.4.0 of CH API</span><span class="tk-who">Sotnikov</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-3860" target="_blank">CIL-3860</a><span class="tk-title">Introduce List Policies to discovery service</span><span class="tk-who">Gaviuk</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12294" target="_blank">PROD-12294</a><span class="etitle">CH Service Structure</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-3858" target="_blank">CIL-3858</a><span class="tk-title">Discovery Service creation</span><span class="tk-who">Mohamed</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-3859" target="_blank">CIL-3859</a><span class="tk-title">Create OE flow</span><span class="tk-who">Mohamed</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5412" target="_blank">CIL-5412</a><span class="tk-title">Decouple certs from discovery</span><span class="tk-who">Gaviuk</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12383" target="_blank">PROD-12383</a><span class="etitle">Person Details</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4884" target="_blank">CIL-4884</a><span class="tk-title">Extend Marital Status enum with UNKNOWN</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5551" target="_blank">CIL-5551</a><span class="tk-title">Bug: Social Security number not updating</span><span class="tk-who">Gaviuk</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5138" target="_blank">CIL-5138</a><span class="tk-title">Support Nationality Update via Update Insured Person</span><span class="tk-who">Jefimovs</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12468" target="_blank">PROD-12468</a><span class="etitle">Paperless</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4740" target="_blank">CIL-4740</a><span class="tk-title">API draft: Get Person Details &amp; Update Insured Person — Paperless prefs</span><span class="tk-who">Sotnikov</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4739" target="_blank">CIL-4739</a><span class="tk-title">e2e: extend Get Person Details &amp; Update Insured Person — Paperless</span><span class="tk-who">Poltoran</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4319" target="_blank">CIL-4319</a><span class="tk-title">sisu-api &amp; discovery: extend Update Insured Person with paperless</span><span class="tk-who">Poltoran</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12469" target="_blank">PROD-12469</a><span class="etitle">Claims Service</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-3980" target="_blank">CIL-3980</a><span class="tk-title">API draft: New endpoint for Claims journey (claim submission)</span><span class="tk-who">Zinin</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4301" target="_blank">CIL-4301</a><span class="tk-title">e2e: Claims journey integration</span><span class="tk-who">Skoryk</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4516" target="_blank">CIL-4516</a><span class="tk-title">sisu-api &amp; discovery: map CH claims fields to sisu format</span><span class="tk-who">Skoryk</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5327" target="_blank">CIL-5327</a><span class="tk-title">QA: Claim id in GET Policy for active claims</span><span class="tk-who">Akimova</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12470" target="_blank">PROD-12470</a><span class="etitle">Policy Documents</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4440" target="_blank">CIL-4440</a><span class="tk-title">discovery-service: call CH api Get Document endpoint</span><span class="tk-who">Sotnikov</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4820" target="_blank">CIL-4820</a><span class="tk-title">Refactor Policy Endpoints to Use Generated Models</span><span class="tk-who">Gaviuk</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5592" target="_blank">CIL-5592</a><span class="tk-title">Bug: Can't get document content in STG</span><span class="tk-who">Saparbaev</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12480" target="_blank">PROD-12480</a><span class="etitle">Person Details 2</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5694" target="_blank">CIL-5694</a><span class="tk-title">e2e: Support care_of_type and care_of in address update</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5695" target="_blank">CIL-5695</a><span class="tk-title">API draft: Add care_of_type and care_of fields to schema</span><span class="tk-who">Vasselli</span><span class="badge badge-todo">To Do</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12483" target="_blank">PROD-12483</a><span class="etitle">PI-II Loyalty</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4195" target="_blank">CIL-4195</a><span class="tk-title">e2e: Get Loyalty Status via Get Person Details</span><span class="tk-who">Saparbaev</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4255" target="_blank">CIL-4255</a><span class="tk-title">e2e: Update Loyalty Status via Update Membership endpoint</span><span class="tk-who">Skoryk</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4873" target="_blank">CIL-4873</a><span class="tk-title">API draft: Update Loyalty Status via new endpoint</span><span class="tk-who">Skoryk</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5393" target="_blank">CIL-5393</a><span class="tk-title">Bug: Update membership endpoint returns 403</span><span class="tk-who">Gaviuk</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+          </ul>
+          <ul class="epic-list">
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12643" target="_blank">PROD-12643</a><span class="etitle">Agent 1</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4305" target="_blank">CIL-4305</a><span class="tk-title">API draft: Get Person Details &amp; Get Policy with Agent</span><span class="tk-who">Vasselli</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4599" target="_blank">CIL-4599</a><span class="tk-title">e2e: extend Get Person Details &amp; Get Policy with Agent</span><span class="tk-who">Gaviuk</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4715" target="_blank">CIL-4715</a><span class="tk-title">API draft: Amend agent &amp; agency fields in Get Person Details</span><span class="tk-who">Skoryk</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12718" target="_blank">PROD-12718</a><span class="etitle">PI-II Policy Coverages</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4302" target="_blank">CIL-4302</a><span class="tk-title">e2e: Get Policy integration for Coverages</span><span class="tk-who">Gaviuk</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4331" target="_blank">CIL-4331</a><span class="tk-title">API draft: update Get Policy — Coverages</span><span class="tk-who">Sotnikov</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4950" target="_blank">CIL-4950</a><span class="tk-title">Fix: GET Policy document 500 if no coverages</span><span class="tk-who">Sotnikov</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12801" target="_blank">PROD-12801</a><span class="etitle">PI-II Dunning Stop</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5594" target="_blank">CIL-5594</a><span class="tk-title">QA: Dunning stop only works for user-owned policies</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5674" target="_blank">CIL-5674</a><span class="tk-title">Bug: X-Sisu-Request-ID not required, language param missing</span><span class="tk-who">Solanki</span><span class="badge badge-wip">QA To Do</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4918" target="_blank">CIL-4918</a><span class="tk-title">discovery &amp; provider: POST dunning stop</span><span class="tk-who">Sotnikov</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4091" target="_blank">CIL-4091</a><span class="tk-title">sisu-api &amp; discovery: GET Dunning stop meta</span><span class="tk-who">Skoryk</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12802" target="_blank">PROD-12802</a><span class="etitle">PI-II Search Address</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5229" target="_blank">CIL-5229</a><span class="tk-title">API draft: Expose Generic Search Address Endpoint</span><span class="tk-who">Yaroshenko</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5407" target="_blank">CIL-5407</a><span class="tk-title">sisu api &amp; discovery: Implement POST /v1/addresses/search</span><span class="tk-who">Skoryk</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5408" target="_blank">CIL-5408</a><span class="tk-title">Provider: Integrate CH OE address search endpoints</span><span class="tk-who">Gaviuk</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12806" target="_blank">PROD-12806</a><span class="etitle">PI-II Policy Agent</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4194" target="_blank">CIL-4194</a><span class="tk-title">API draft: Get Policy Document</span><span class="tk-who">Sotnikov</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12821" target="_blank">PROD-12821</a><span class="etitle">PI-II Search Vehicle</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5498" target="_blank">CIL-5498</a><span class="tk-title">Bug: Missing eurotax_id in Vehicle Search response</span><span class="tk-who">Papp</span><span class="badge badge-wip">In Prevalidation</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5376" target="_blank">CIL-5376</a><span class="tk-title">Extend Search Vehicle response fields</span><span class="tk-who">Sotnikov</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4813" target="_blank">CIL-4813</a><span class="tk-title">Provider: Search Vehicle endpoint integration</span><span class="tk-who">Skoryk</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12875" target="_blank">PROD-12875</a><span class="etitle">Paperless Preferences</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5385" target="_blank">CIL-5385</a><span class="tk-title">QA Investigation: returns 200 but does not update</span><span class="tk-who">Skoryk</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12876" target="_blank">PROD-12876</a><span class="etitle">Marketing Preferences</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5606" target="_blank">CIL-5606</a><span class="tk-title">Bug: Marketing preference section not updated correctly</span><span class="tk-who">Papp</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5240" target="_blank">CIL-5240</a><span class="tk-title">Invert logic for Marketing Preference opt_in/opt_out</span><span class="tk-who">Sotnikov</span><span class="badge badge-done">Done</span></li>
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5197" target="_blank">CIL-5197</a><span class="tk-title">Investigation: Get Marketing Preference does not update</span><span class="tk-who">Papp</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+            <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13311" target="_blank">PROD-13311</a><span class="etitle">PI-III Motor Certificate Improvements</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+              <ul class="task-list">
+                <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5785" target="_blank">CIL-5785</a><span class="tk-title">API draft — merge Amendment endpoint to shared repo</span><span class="tk-who">Saparbaev</span><span class="badge badge-done">Done</span></li>
+              </ul>
+            </details></li>
+          </ul>
+        </div>
+      </details>
     </div>
 
     <!-- 18200 General Work -->
@@ -236,20 +460,67 @@
         </div>
       </div>
       <div class="prog-wrap">
-        <div class="prog-label"><span>Epic progress</span><span>0 done · 6 in progress · 3 to do</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div>
+        <div class="prog-label"><span>Epic progress</span><span>2 done · 6 in progress · 3 to do</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:18%"></div></div>
       </div>
       <ul class="epic-list">
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13055" target="_blank">PROD-13055</a><span class="etitle">FCP Migration GlobalApp</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13055" target="_blank">PROD-13055</a><span class="etitle">FCP Migration GlobalApp</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/FN-29" target="_blank">FN-29</a><span class="tk-title">Integrate EntraID as upstream OIDC provider via Dex</span><span class="tk-who">Kisialeu</span><span class="badge badge-wip">In Progress</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/FN-45" target="_blank">FN-45</a><span class="tk-title">Setup Observability Stack for AGA</span><span class="tk-who">Okhotnikov</span><span class="badge badge-wip">In Progress</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/FN-49" target="_blank">FN-49</a><span class="tk-title">Create RabbitMQ Resources for sng-prd-eu-01</span><span class="tk-who">Kisialeu</span><span class="badge badge-wip">In Progress</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/FN-63" target="_blank">FN-63</a><span class="tk-title">Logs on Dynatrace</span><span class="tk-who">Okhotnikov</span><span class="badge badge-wip">In Progress</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/FN-73" target="_blank">FN-73</a><span class="tk-title">Connection to existing public SFTP endpoints</span><span class="tk-who">Assy</span><span class="badge badge-wip">In Progress</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/FN-85" target="_blank">FN-85</a><span class="tk-title">Provide DB Access to staging for QA</span><span class="tk-who">Okhotnikov</span><span class="badge badge-wip">In Progress</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/FN-110" target="_blank">FN-110</a><span class="tk-title">Re-create AGA CRP clusters using updated API</span><span class="tk-who">Okhotnikov</span><span class="badge badge-wip">In Progress</span></li>
+            </ul>
+          </details></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12966" target="_blank">PROD-12966</a><span class="etitle">Alerts &amp; Notifications design</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12979" target="_blank">PROD-12979</a><span class="etitle">Onboarding Safiko Papkhadze</span><span class="edates">15 May → 30 Jun</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12978" target="_blank">PROD-12978</a><span class="etitle">Login Beta+</span><span class="edates">21 May → 16 Jun</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12948" target="_blank">PROD-12948</a><span class="etitle">Login Beta</span><span class="edates">7 May → 29 May</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12923" target="_blank">PROD-12923</a><span class="etitle">Virtual OE</span><span class="edates">6 May → 21 Jul</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12978" target="_blank">PROD-12978</a><span class="etitle">Login Beta+</span><span class="edates">21 May → 16 Jun</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5000" target="_blank">CIL-5000</a><span class="tk-title">Compliance Documentation</span><span class="tk-who">Ponomarev</span><span class="badge badge-wip">In Progress</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5328" target="_blank">CIL-5328</a><span class="tk-title">Login integration with BMP Claims</span><span class="tk-who">Ponomarev</span><span class="badge badge-wip">In Progress</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5081" target="_blank">CIL-5081</a><span class="tk-title">Implement WebView Authentication for AzD NL</span><span class="tk-who">Ponomarev</span><span class="badge badge-todo">To Do</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5310" target="_blank">CIL-5310</a><span class="tk-title">Investigate key rotation: find keys for auto-rotation</span><span class="tk-who">Kurpiel</span><span class="badge badge-todo">To Do</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5736" target="_blank">CIL-5736</a><span class="tk-title">Implement WebView Authentication for AAL (workaround)</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12948" target="_blank">PROD-12948</a><span class="etitle">Login Beta</span><span class="edates">7 May → 29 May</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12951" target="_blank">PROD-12951</a><span class="tk-title">Login: Documentation</span><span class="tk-who">Kuznietsova</span><span class="badge badge-wip">Review</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12952" target="_blank">PROD-12952</a><span class="tk-title">Login: APIGee config</span><span class="tk-who">Depraz</span><span class="badge badge-todo">To Do</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5002" target="_blank">CIL-5002</a><span class="tk-title">Investigation: Learn how APIGEE works</span><span class="tk-who">Ponomarev</span><span class="badge badge-wip">In Prevalidation</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5003" target="_blank">CIL-5003</a><span class="tk-title">Implement "Link Identities" Lambda</span><span class="tk-who">Kurpiel</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5007" target="_blank">CIL-5007</a><span class="tk-title">Hardening of Lambda Functions and Cognito Configuration</span><span class="tk-who">Kurpiel</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5080" target="_blank">CIL-5080</a><span class="tk-title">Account recovery (SEK)</span><span class="tk-who">Kurpiel</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5436" target="_blank">CIL-5436</a><span class="tk-title">FCP migration: create production environments for login</span><span class="tk-who">Ponomarev</span><span class="badge badge-done">Done</span></li>
+            </ul>
+          </details></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12923" target="_blank">PROD-12923</a><span class="etitle">Virtual OE</span><span class="edates">6 May → 21 Jul</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12924" target="_blank">PROD-12924</a><span class="tk-title">Requirements gathering and API analysis</span><span class="tk-who">Kuznietsova</span><span class="badge badge-wip">In Progress</span></li>
+            </ul>
+          </details></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13398" target="_blank">PROD-13398</a><span class="etitle">WebAlerts implementation</span><span class="edates">29 Jul → 13 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13397" target="_blank">PROD-13397</a><span class="etitle">Enable Notification Centre (Kafka)</span><span class="edates">29 Jul → 13 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13365" target="_blank">PROD-13365</a><span class="etitle">Onboarding Larysa Didenko</span><span class="edates"> → 21 Jul</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-</ul>
+      </ul>
+      <details class="done-toggle">
+        <summary><span class="dt-arrow">▶</span> 2 completed epics</summary>
+        <ul class="epic-list" style="margin-top:6px">
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13182" target="_blank">PROD-13182</a><span class="etitle">FlowForge Setup for BA Needs</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-13183" target="_blank">PROD-13183</a><span class="tk-title">FlowForge Setup for Julia Kuznietsova</span><span class="tk-who">Kuznietsova</span><span class="badge badge-done">Done</span></li>
+            </ul>
+          </details></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12874" target="_blank">PROD-12874</a><span class="etitle">Onboarding Nikola</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4880" target="_blank">CIL-4880</a><span class="tk-title">Onboarding Nikola Zivkovic</span><span class="tk-who">Zivkovic</span><span class="badge badge-done">Done</span></li>
+            </ul>
+          </details></li>
+        </ul>
+      </details>
     </div>
 
     <!-- 18202 AzD NL -->
@@ -265,18 +536,55 @@
         </div>
       </div>
       <div class="prog-wrap">
-        <div class="prog-label"><span>Epic progress</span><span>0 done · 2 in progress · 5 to do</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div>
+        <div class="prog-label"><span>Epic progress</span><span>2 done · 2 in progress · 10 to do</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:14%"></div></div>
       </div>
       <ul class="epic-list">
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13500" target="_blank">PROD-13500</a><span class="etitle">Available Actions</span><span class="edates">15 Jun → 17 Aug</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13500" target="_blank">PROD-13500</a><span class="etitle">Available Actions</span><span class="edates">15 Jun → 17 Aug</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5211" target="_blank">CIL-5211</a><span class="tk-title">AzD NL: Implement Available Actions endpoint</span><span class="tk-who">Bezrukova</span><span class="badge badge-wip">In Validation</span></li>
+            </ul>
+          </details></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13240" target="_blank">PROD-13240</a><span class="etitle">FlowForge for AzD NL ✦</span><span class="edates">1 Jun → 28 Aug</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13502" target="_blank">PROD-13502</a><span class="etitle">Onboarding additional LoB</span><span class="edates">20 Jul → 31 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13501" target="_blank">PROD-13501</a><span class="etitle">Policy Documents</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13261" target="_blank">PROD-13261</a><span class="etitle">Time Tracking</span><span class="edates">8 Jun → 31 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13261" target="_blank">PROD-13261</a><span class="etitle">Time Tracking</span><span class="edates">8 Jun → 31 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-13262" target="_blank">PROD-13262</a><span class="tk-title">Time Tracking sub-task 1</span><span class="tk-who">Papkhadze</span><span class="badge badge-todo">To Do</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-13263" target="_blank">PROD-13263</a><span class="tk-title">Time Tracking sub-task 2</span><span class="tk-who">Papkhadze</span><span class="badge badge-todo">To Do</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-13509" target="_blank">PROD-13509</a><span class="tk-title">Time Tracking sub-task 3</span><span class="tk-who">Papkhadze</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13503" target="_blank">PROD-13503</a><span class="etitle">Policy Coverages</span><span class="edates">3 Aug → 14 Sep</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13504" target="_blank">PROD-13504</a><span class="etitle">Contact Us (WebChat)</span><span class="edates">21 Sep → 12 Oct</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-</ul>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13511" target="_blank">PROD-13511</a><span class="etitle">Multi Policy Discount</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13512" target="_blank">PROD-13512</a><span class="etitle">Q&amp;B Flow (WebView)</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13513" target="_blank">PROD-13513</a><span class="etitle">Change Address (WebView)</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13514" target="_blank">PROD-13514</a><span class="etitle">Change Payment Method (WebView)</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13515" target="_blank">PROD-13515</a><span class="etitle">CAR TRC (WebView)</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13516" target="_blank">PROD-13516</a><span class="etitle">Claim Tracker (WebView)</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+      </ul>
+      <details class="done-toggle">
+        <summary><span class="dt-arrow">▶</span> 2 completed epics</summary>
+        <ul class="epic-list" style="margin-top:6px">
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12614" target="_blank">PROD-12614</a><span class="etitle">Requirements</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12569" target="_blank">PROD-12569</a><span class="tk-title">Prep for architecture workshop &amp; documentation</span><span class="tk-who">Akimova</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12606" target="_blank">PROD-12606</a><span class="tk-title">Discover documentation on AVC</span><span class="tk-who">Akimova</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12624" target="_blank">PROD-12624</a><span class="tk-title">Reviewing CH documentation</span><span class="tk-who">Akimova</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12622" target="_blank">PROD-12622</a><span class="tk-title">Deep dive into insurance domain</span><span class="tk-who">Akimova</span><span class="badge badge-done">Done</span></li>
+            </ul>
+          </details></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12618" target="_blank">PROD-12618</a><span class="etitle">Temporary Customer Login &amp; Authentication</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4996" target="_blank">CIL-4996</a><span class="tk-title">Temporary OpenID Connect server for Direct NL auth</span><span class="tk-who">Ponomarev</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4544" target="_blank">CIL-4544</a><span class="tk-title">auth-service: support RFC 7662 token inspection</span><span class="tk-who">Kurpiel</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-4762" target="_blank">CIL-4762</a><span class="tk-title">Configuring the UAT environment</span><span class="tk-who">Kurpiel</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5411" target="_blank">CIL-5411</a><span class="tk-title">Pass exchanged AzD NL token through sisu↔discovery</span><span class="tk-who">Mohamed</span><span class="badge badge-done">Done</span></li>
+            </ul>
+          </details></li>
+        </ul>
+      </details>
     </div>
 
     <!-- 18204 AZ Partners -->
@@ -296,26 +604,63 @@
         <div class="prog-bar"><div class="prog-fill" style="width:5%"></div></div>
       </div>
       <ul class="epic-list">
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13241" target="_blank">PROD-13241</a><span class="etitle">FlowForge for AZ Partners ✦</span><span class="edates">1 Jun → 28 Aug</span><span class="espacer"></span><span class="badge badge-done">Done</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13256" target="_blank">PROD-13256</a><span class="etitle">Post-Sales Services APIs</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13155" target="_blank">PROD-13155</a><span class="etitle">AzP Trip &amp; Flight planner</span><span class="edates">22 Jun → 28 Aug</span><span class="espacer"></span><span class="badge badge-wip">Engineering</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13079" target="_blank">PROD-13079</a><span class="etitle">AzP Lounge Zone Access (QR code)</span><span class="edates">8 Jun →</span><span class="espacer"></span><span class="badge badge-wip">Engineering</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13256" target="_blank">PROD-13256</a><span class="etitle">Post-Sales Services APIs</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-13324" target="_blank">PROD-13324</a><span class="tk-title">Get architecture approval</span><span class="tk-who">Tsybanova</span><span class="badge badge-wip">In Progress</span></li>
+            </ul>
+          </details></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13155" target="_blank">PROD-13155</a><span class="etitle">AzP Trip &amp; Flight planner</span><span class="edates">22 Jun → 28 Aug</span><span class="espacer"></span><span class="badge badge-wip">Engineering</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/AGB-25" target="_blank">AGB-25</a><span class="tk-title">API RFC: Trip/Flight planner</span><span class="tk-who">Tsybanova</span><span class="badge badge-hold">ON HOLD</span></li>
+            </ul>
+          </details></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13079" target="_blank">PROD-13079</a><span class="etitle">AzP Lounge Zone Access (QR code)</span><span class="edates">8 Jun →</span><span class="espacer"></span><span class="badge badge-wip">Engineering</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/AGB-34" target="_blank">AGB-34</a><span class="tk-title">API RFC: Lounge Zone QR Code Management</span><span class="tk-who">Tsybanova</span><span class="badge badge-hold">Paused</span></li>
+            </ul>
+          </details></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13008" target="_blank">PROD-13008</a><span class="etitle">Gap analysis &amp; mapping for AzP</span><span class="edates">30 Jun →</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13492" target="_blank">PROD-13492</a><span class="etitle">Log in</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13492" target="_blank">PROD-13492</a><span class="etitle">Log in</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/CIL-5537" target="_blank">CIL-5537</a><span class="tk-title">Investigation login AzP Australia</span><span class="tk-who">Unassigned</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13159" target="_blank">PROD-13159</a><span class="etitle">Loyalty programs</span><span class="edates">8 Jun → 28 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13157" target="_blank">PROD-13157</a><span class="etitle">Contact Us</span><span class="edates">8 Jun → 28 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13156" target="_blank">PROD-13156</a><span class="etitle">Get a quote</span><span class="edates">8 Jun → 28 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13153" target="_blank">PROD-13153</a><span class="etitle">Language support</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-hold">Paused / On Hold</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13139" target="_blank">PROD-13139</a><span class="etitle">Intake, Discovery, Decomposition &amp; Delivery</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13139" target="_blank">PROD-13139</a><span class="etitle">Intake, Discovery, Decomposition &amp; Delivery</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-13395" target="_blank">PROD-13395</a><span class="tk-title">Discovery Lounge/Travel</span><span class="tk-who">Tsybanova</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13138" target="_blank">PROD-13138</a><span class="etitle">Claim service</span><span class="edates">22 Jun →</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13090" target="_blank">PROD-13090</a><span class="etitle">Medical Terms</span><span class="edates">8 Jun →</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13089" target="_blank">PROD-13089</a><span class="etitle">User Dashboard</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13085" target="_blank">PROD-13085</a><span class="etitle">Allyz Policy management</span><span class="edates">8 Jun →</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13084" target="_blank">PROD-13084</a><span class="etitle">Allyz Contact Doctor</span><span class="edates">8 Jun →</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13083" target="_blank">PROD-13083</a><span class="etitle">Allyz Hospital Finder</span><span class="edates">8 Jun →</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13082" target="_blank">PROD-13082</a><span class="etitle">Allyz Get Emergency Numbers</span><span class="edates">8 Jun →</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13083" target="_blank">PROD-13083</a><span class="etitle">Allyz Hospital Finder</span><span class="edates">8 Jun →</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/AGB-22" target="_blank">AGB-22</a><span class="tk-title">API RFC: Hospital Finder</span><span class="tk-who">Martins</span><span class="badge badge-todo">To Do</span></li>
+            </ul>
+          </details></li>
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13082" target="_blank">PROD-13082</a><span class="etitle">Allyz Get Emergency Numbers</span><span class="edates">8 Jun →</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/AGB-19" target="_blank">AGB-19</a><span class="tk-title">API RFC: Emergency Numbers</span><span class="tk-who">Unassigned</span><span class="badge badge-wip">In Progress</span></li>
+            </ul>
+          </details></li>
           <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13076" target="_blank">PROD-13076</a><span class="etitle">AzP Vault microservice</span><span class="edates">8 Jun → 7 Aug</span><span class="espacer"></span><span class="badge badge-todo">To Do</span></li>
-</ul>
+      </ul>
+      <details class="done-toggle">
+        <summary><span class="dt-arrow">▶</span> 1 completed epic</summary>
+        <ul class="epic-list" style="margin-top:6px">
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13241" target="_blank">PROD-13241</a><span class="etitle">FlowForge for AZ Partners ✦</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-13396" target="_blank">PROD-13396</a><span class="tk-title">FlowForge set up for Yulia Tsybanova</span><span class="tk-who">Tsybanova</span><span class="badge badge-done">Done</span></li>
+            </ul>
+          </details></li>
+        </ul>
+      </details>
     </div>
 
     <!-- 18205 Allianz Italy -->
@@ -330,7 +675,21 @@
           <div class="owner">Sarah Martins · Armida Napolitano</div>
         </div>
       </div>
-      <div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">No active epics — all prior epics closed</div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Epic progress</span><span>3 done · 1 in progress · 0 to do</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:75%"></div></div>
+      </div>
+      <ul class="epic-list" style="margin-top:8px">
+        <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12657" target="_blank">PROD-12657</a><span class="etitle">Discovery Global App Allianz Italy</span><span class="edates">24 Mar → 30 Jun</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+      </ul>
+      <details class="done-toggle">
+        <summary><span class="dt-arrow">▶</span> 3 completed epics</summary>
+        <ul class="epic-list" style="margin-top:6px">
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12831" target="_blank">PROD-12831</a><span class="etitle">Workspace configuration</span><span class="espacer"></span><span class="badge badge-done">Done</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12628" target="_blank">PROD-12628</a><span class="etitle">Armida Napolitano onboarding</span><span class="espacer"></span><span class="badge badge-done">Done</span></li>
+          <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12479" target="_blank">PROD-12479</a><span class="etitle">Dmytro Tymofiienko onboarding</span><span class="espacer"></span><span class="badge badge-done">Done</span></li>
+        </ul>
+      </details>
     </div>
 
     <!-- 18203 AAL Australia -->
@@ -351,10 +710,29 @@
       </div>
       <ul class="epic-list" style="margin-top:8px">
         <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12890" target="_blank">PROD-12890</a><span class="etitle">Taalai Saparbaev Onboarding</span><span class="edates">27 Apr → 11 May</span><span class="espacer"></span><span class="badge badge-done">Done</span></li>
-        <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13376" target="_blank">PROD-13376</a><span class="etitle">Onboarding Armida Napolitano / OE Discovery</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
+        <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13376" target="_blank">PROD-13376</a><span class="etitle">Onboarding Armida Napolitano / OE Discovery</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
+          <ul class="task-list">
+            <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-13498" target="_blank">PROD-13498</a><span class="tk-title">GlobalApp [ALL OE] time tracking</span><span class="tk-who">Napolitano</span><span class="badge badge-todo">To Do</span></li>
+            <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-13499" target="_blank">PROD-13499</a><span class="tk-title">Global App [AAL OE] PI#3 planning</span><span class="tk-who">Napolitano</span><span class="badge badge-todo">To Do</span></li>
+          </ul>
+        </details></li>
         <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13326" target="_blank">PROD-13326</a><span class="etitle">CMS</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
         <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13325" target="_blank">PROD-13325</a><span class="etitle">Prepare Policy API design for governance board</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
       </ul>
+      <details class="done-toggle">
+        <summary><span class="dt-arrow">▶</span> 1 completed epic</summary>
+        <ul class="epic-list" style="margin-top:6px">
+          <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12890" target="_blank">PROD-12890</a><span class="etitle">Taalai Saparbaev Onboarding</span><span class="espacer"></span><span class="badge badge-done">Done</span></summary>
+            <ul class="task-list">
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12893" target="_blank">PROD-12893</a><span class="tk-title">Meet Engineering Team</span><span class="tk-who">Saparbaev</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12894" target="_blank">PROD-12894</a><span class="tk-title">Create and set up Sandbox</span><span class="tk-who">Saparbaev</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12895" target="_blank">PROD-12895</a><span class="tk-title">Familiarize with Product Documentation</span><span class="tk-who">Saparbaev</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12901" target="_blank">PROD-12901</a><span class="tk-title">Familiarize with Simplesurance API</span><span class="tk-who">Saparbaev</span><span class="badge badge-done">Done</span></li>
+              <li><a class="tk-key" href="https://sisu-agile.atlassian.net/browse/PROD-12902" target="_blank">PROD-12902</a><span class="tk-title">Get access to Postman Collections</span><span class="tk-who">Saparbaev</span><span class="badge badge-done">Done</span></li>
+            </ul>
+          </details></li>
+        </ul>
+      </details>
     </div>
 
     <!-- 18206 AzD Italy -->
@@ -393,6 +771,27 @@
       </thead>
       <tbody>
         <tr>
+          <td><a href="https://sisu-agile.atlassian.net/browse/CIL-5845" target="_blank">CIL-5845</a></td>
+          <td>Global App AzD — Update mock responses for Get Policy Details and Policy Capabilities</td>
+          <td class="ff-initiative-tag">AzD NL (18202)</td>
+          <td>Unassigned</td>
+          <td><span class="ff-badge todo">To Do</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://sisu-agile.atlassian.net/browse/CIL-5844" target="_blank">CIL-5844</a></td>
+          <td>Global App AzD — Investigation — missing mapping for Insured Object + IBAN enrichment</td>
+          <td class="ff-initiative-tag">AzD NL (18202)</td>
+          <td>Unassigned</td>
+          <td><span class="ff-badge todo">To Do</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://sisu-agile.atlassian.net/browse/CIL-5701" target="_blank">CIL-5701</a></td>
+          <td>Global App AzD — Claims integration — incomplete mapping</td>
+          <td class="ff-initiative-tag">AzD NL (18202)</td>
+          <td>Unassigned</td>
+          <td><span class="ff-badge todo">To Do</span></td>
+        </tr>
+        <tr>
           <td><a href="https://sisu-agile.atlassian.net/browse/CIL-5734" target="_blank">CIL-5734</a></td>
           <td>Global App AzD — List Policies, Get Policies: Ensure stable integration with updated spec</td>
           <td class="ff-initiative-tag">AzD NL (18202)</td>
@@ -411,7 +810,7 @@
           <td>Global App AzD — Extend LoB + map with provider field for List/Get Policies</td>
           <td class="ff-initiative-tag">AzD NL (18202)</td>
           <td>Vladimir Patrikeev</td>
-          <td><span class="ff-badge wip">In Progress</span></td>
+          <td><span class="ff-badge review">In Prevalidation</span></td>
         </tr>
         <tr>
           <td><a href="https://sisu-agile.atlassian.net/browse/CIL-5352" target="_blank">CIL-5352</a></td>
@@ -472,24 +871,244 @@
       </tbody>
     </table>
     <div style="padding:8px 16px;background:#f8fafc;border-top:1px solid var(--border);font-size:11px;color:var(--muted)">
-      11 tickets · <a href="https://sisu-agile.atlassian.net/issues/?jql=labels%3DFlowForge%20AND%20(text%20~%20%22Global%20App%22%20OR%20text%20~%20%22AzD%22)%20ORDER%20BY%20created%20DESC" target="_blank">View all in Jira ↗</a>
+      14 tickets · <a href="https://sisu-agile.atlassian.net/issues/?jql=labels%3DFlowForge%20AND%20(text%20~%20%22Global%20App%22%20OR%20text%20~%20%22AzD%22)%20ORDER%20BY%20created%20DESC" target="_blank">View all in Jira ↗</a>
     </div>
+  </div>
+
+  <!-- ── Key Risks & Observations ── -->
+  <h2>⚠️ Key Risks &amp; Observations</h2>
+  <div class="risk-grid">
+
+    <!-- R1 -->
+    <div class="risk-card">
+      <div class="risk-card-head">
+        <span class="risk-icon">🔴</span>
+        <span class="risk-title">Performance: BFF 504 Gateway Timeouts Under Load</span>
+        <span class="risk-sev sev-high">High</span>
+      </div>
+      <div class="risk-body">
+        Performance testing at 300 TPM surfaced HTTP 504 Gateway Timeout errors on <strong>ListPolicyDocuments</strong>, <strong>GetUserProfile</strong>, and <strong>GetUserPolicies</strong>. GetPolicyDetail shows worst-case response times of ~31 s. Root cause traced to backend integration services hanging at the CIL layer before responding. Sequential upstream calls in GetPolicy (5 provider round-trips) compound latency.
+        <div class="risk-jira">
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/CIL-5085" target="_blank">CIL-5085</a> In Code Review</span>
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/CIL-5394" target="_blank">CIL-5394</a> Parallel calls In Progress</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- R2 -->
+    <div class="risk-card">
+      <div class="risk-card-head">
+        <span class="risk-icon">🔴</span>
+        <span class="risk-title">Blocker: Lookup Value Normalisation (CHOE)</span>
+        <span class="risk-sev sev-high">Blocker</span>
+      </div>
+      <div class="risk-body">
+        OE-formatted lookup values (e.g. <code>BUSINESS</code>) cannot be directly sent back via Update Insured Person — CIL expects its own ENUM format (e.g. <code>WORK</code>). Affects contact type, payment frequency, marital status lookups. Without normalisation at response time the frontend has no deterministic way to map values, breaking Update Insured Person flows.
+        <div class="risk-jira">
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/CIL-5572" target="_blank">CIL-5572</a> In Progress (Saparbaev)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- R3 -->
+    <div class="risk-card">
+      <div class="risk-card-head">
+        <span class="risk-icon">🟠</span>
+        <span class="risk-title">CH Switzerland PI-III: 7 Epics Not Yet Started</span>
+        <span class="risk-sev sev-medium">Medium</span>
+      </div>
+      <div class="risk-body">
+        Seven PI-III epics for the CH OE remain in <strong>To Do</strong> with no sprint assignment: Mailbox-Item &amp; Mailbox-List CIL tickets (Major, unassigned), Asynch Process Communication, Customer Profile Delete, Multiple Customer Numbers, Customer Bank Account Improvements, All-LOBs QA, and Accident &amp; Group Health Insurance. 3 Critical epics (Notifications, Mailbox-List, Mailbox-Item) are In Progress but have unassigned CIL delivery tickets.
+        <div class="risk-jira">
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-13301" target="_blank">PROD-13301</a></span>
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-13304" target="_blank">PROD-13304</a></span>
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-13307" target="_blank">PROD-13307</a></span>
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-12819" target="_blank">PROD-12819</a></span>
+          <span class="rj-tag">+3 more</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- R4 -->
+    <div class="risk-card">
+      <div class="risk-card-head">
+        <span class="risk-icon">🟠</span>
+        <span class="risk-title">AAL (Post-Sales / Italy): All Epics On Hold</span>
+        <span class="risk-sev sev-medium">Medium</span>
+      </div>
+      <div class="risk-body">
+        All 6 AAL epics (Policy View, Consent Management, Personal Information, Dashboard &amp; Navigation, User Onboarding, Real-time Notifications) remain <strong>ON HOLD</strong>, assigned to Yulia Tsybanova. No delivery activity this PI. Italy initiative has no epics created yet. Risk: AAL scope will compress PI-III / PI-IV delivery window if hold is not resolved early in the next PI.
+        <div class="risk-jira">
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-12729" target="_blank">PROD-12729</a></span>
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-12742" target="_blank">PROD-12742</a></span>
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-12524" target="_blank">PROD-12524</a></span>
+          <span class="rj-tag">+3 more</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- R5 -->
+    <div class="risk-card">
+      <div class="risk-card-head">
+        <span class="risk-icon">🟠</span>
+        <span class="risk-title">Monitoring &amp; Tracing: On Hold, No Observability Coverage</span>
+        <span class="risk-sev sev-medium">Medium</span>
+      </div>
+      <div class="risk-body">
+        Two foundational NFR epics — <strong>Monitoring &amp; Observability</strong> and <strong>Propagate Tracing &amp; Correlation Headers</strong> — are both ON HOLD. Without end-to-end tracing (W3C traceparent + x-correlation-id through Mobile → APIGEE → BFF → CIL → OE), incident diagnosis across the stack is manual and slow. This is a pre-condition for production readiness in multi-OE rollout.
+        <div class="risk-jira">
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-12759" target="_blank">PROD-12759</a> Monitoring ON HOLD</span>
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-12760" target="_blank">PROD-12760</a> Tracing ON HOLD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- R6 -->
+    <div class="risk-card">
+      <div class="risk-card-head">
+        <span class="risk-icon">🟠</span>
+        <span class="risk-title">Login: Security Compliance &amp; Key Rotation In Progress</span>
+        <span class="risk-sev sev-medium">Medium</span>
+      </div>
+      <div class="risk-body">
+        Login compliance documentation is still In Progress (CIL-5000, Ponomarev). Federation Claim Isolation PoC (CIL-5512) is in Pre-Validation — AWS has provided a PoC for isolating sensitive federation claims via Cognito, but the decision on full zero-knowledge vs. interim hardening is pending. Key rotation strategy (CIL-5310) is unstarted. These three items must be resolved before multi-OE production rollout.
+        <div class="risk-jira">
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/CIL-5000" target="_blank">CIL-5000</a> Compliance In Progress</span>
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/CIL-5512" target="_blank">CIL-5512</a> PoC Pre-Validation</span>
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/CIL-5310" target="_blank">CIL-5310</a> Key Rotation To Do</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- R7 -->
+    <div class="risk-card">
+      <div class="risk-card-head">
+        <span class="risk-icon">🔵</span>
+        <span class="risk-title">API Contract Inconsistency: premium Field (List vs. Get Policy)</span>
+        <span class="risk-sev sev-info">Observation</span>
+      </div>
+      <div class="risk-body">
+        The <code>premium.amount</code> field is returned as <strong>string</strong> in ListPolicies but as <strong>number</strong> in GetPolicy. The interval field is named <code>frequency</code> in List vs. <code>premium_term</code> in Get. This inconsistency is already in production and forces all consumers to implement dual parsing. Grooming note: align ListPolicies to GetPolicy structure; keep old field for 2 months during transition.
+        <div class="risk-jira">
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/CIL-3933" target="_blank">CIL-3933</a> Backlog (unassigned)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- R8 -->
+    <div class="risk-card">
+      <div class="risk-card-head">
+        <span class="risk-icon">🔵</span>
+        <span class="risk-title">AZ Partners (NBG): WebChat Architecture Pending</span>
+        <span class="risk-sev sev-info">Observation</span>
+      </div>
+      <div class="risk-body">
+        Contact Us WebChat epic (PROD-13504) is a placeholder — global solution architecture is still pending. Integration pattern concept for Cognigy (AZPOCKET-1274) has not been finalised. Listed as a <em>stretch goal for PI3</em>. Notification Centre Kafka setup (PROD-13397) also remains To Do, with delivery dependent on the platform team and FCP provisioning a dedicated SISU Kafka topic.
+        <div class="risk-jira">
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-13504" target="_blank">PROD-13504</a> WebChat placeholder</span>
+          <span class="rj-tag"><a href="https://sisu-agile.atlassian.net/browse/PROD-13397" target="_blank">PROD-13397</a> Kafka setup To Do</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </div>
 <script>
 (function() {
+  // ── Overdue date highlighting ──
   const MONTHS = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
   const today = new Date(); today.setHours(0,0,0,0);
   document.querySelectorAll('.epic-list li').forEach(function(li) {
-    const datesEl = li.querySelector('.edates');
-    const badgeEl = li.querySelector('.badge');
+    var datesEl = li.querySelector('.edates');
+    var badgeEl = li.querySelector('.badge');
     if (!datesEl || !badgeEl) return;
     if (badgeEl.classList.contains('badge-done')) return;
-    const m = datesEl.textContent.match(/→\s*(\d+)\s+([A-Z][a-z]{2})/);
+    var m = datesEl.textContent.match(/→\s*(\d+)\s+([A-Z][a-z]{2})/);
     if (!m) return;
-    const endDate = new Date(today.getFullYear(), MONTHS[m[2]], parseInt(m[1]));
+    var endDate = new Date(today.getFullYear(), MONTHS[m[2]], parseInt(m[1]));
     if (endDate < today) datesEl.style.color = '#dc2626';
+  });
+
+  // ── Search ──
+  var input = document.getElementById('dash-search');
+  var countEl = document.getElementById('search-count');
+  if (!input) return;
+
+  // Cards and table rows we can hide
+  var cards = Array.from(document.querySelectorAll('.card'));
+  var ffRows = Array.from(document.querySelectorAll('.ff-table tbody tr'));
+  var riskCards = Array.from(document.querySelectorAll('.risk-card'));
+
+  // Build text index per card for fast matching
+  function getText(el) { return el.textContent.toLowerCase(); }
+
+  input.addEventListener('input', function() {
+    var q = input.value.trim().toLowerCase();
+    if (!q) {
+      // Reset all
+      cards.forEach(function(c) { c.classList.remove('s-hide'); });
+      ffRows.forEach(function(r) { r.classList.remove('s-hide'); });
+      riskCards.forEach(function(r) { r.classList.remove('s-hide'); });
+      countEl.textContent = '';
+      // Close any expanded details that were auto-opened
+      document.querySelectorAll('details.epic-expand[data-search-opened]').forEach(function(d) {
+        d.removeAttribute('open'); d.removeAttribute('data-search-opened');
+      });
+      document.querySelectorAll('details.done-toggle[data-search-opened]').forEach(function(d) {
+        d.removeAttribute('open'); d.removeAttribute('data-search-opened');
+      });
+      return;
+    }
+
+    var hits = 0;
+
+    // Cards: show if card text matches; also open task lists so child matches are visible
+    cards.forEach(function(card) {
+      var matched = getText(card).includes(q);
+      if (matched) {
+        card.classList.remove('s-hide');
+        hits++;
+        // Auto-open epic-expand details that contain the query
+        card.querySelectorAll('details.epic-expand').forEach(function(d) {
+          if (getText(d).includes(q) && !d.open) {
+            d.setAttribute('open', '');
+            d.setAttribute('data-search-opened', '1');
+          }
+        });
+        // Auto-open done-toggle if match inside
+        card.querySelectorAll('details.done-toggle').forEach(function(d) {
+          if (getText(d).includes(q) && !d.open) {
+            d.setAttribute('open', '');
+            d.setAttribute('data-search-opened', '1');
+          }
+        });
+      } else {
+        card.classList.add('s-hide');
+      }
+    });
+
+    // FF table rows
+    ffRows.forEach(function(row) {
+      if (getText(row).includes(q)) {
+        row.classList.remove('s-hide');
+        hits++;
+      } else {
+        row.classList.add('s-hide');
+      }
+    });
+
+    // Risk cards
+    riskCards.forEach(function(rc) {
+      if (getText(rc).includes(q)) {
+        rc.classList.remove('s-hide');
+        hits++;
+      } else {
+        rc.classList.add('s-hide');
+      }
+    });
+
+    countEl.textContent = hits + ' result' + (hits !== 1 ? 's' : '');
   });
 })();
 </script>
