@@ -49,7 +49,8 @@
   .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
 
   /* ── Summary bar ── */
-  .summary-bar { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 32px; }
+  .summary-bar { display: grid; grid-template-columns: repeat(9, 1fr); gap: 12px; margin-bottom: 32px; }
+  .ticket-stats { font-size: 11px; color: var(--muted); margin-top: 6px; }
   .summary-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
   .summary-card .num  { font-size: 26px; font-weight: 700; line-height: 1; }
   .summary-card .lbl  { font-size: 12px; color: var(--muted); margin-top: 4px; }
@@ -242,6 +243,18 @@
       <div class="num">14</div>
       <div class="lbl">FlowForge AI Tickets</div>
     </div>
+    <div class="summary-card gray">
+      <div class="num">559</div>
+      <div class="lbl">Total Tickets</div>
+    </div>
+    <div class="summary-card green">
+      <div class="num">481</div>
+      <div class="lbl">Tickets Done</div>
+    </div>
+    <div class="summary-card amber">
+      <div class="num">39</div>
+      <div class="lbl">Tickets In Progress</div>
+    </div>
   </div>
 
   <!-- ══ Active Initiatives ══ -->
@@ -263,6 +276,7 @@
       <div class="prog-wrap">
         <div class="prog-label"><span>Epic progress</span><span>17 done · 8 in progress · 8 to do</span></div>
         <div class="prog-bar"><div class="prog-fill" style="width:52%"></div></div>
+        <div class="ticket-stats">258 tickets · 218 done · 16 in progress</div>
       </div>
       <div class="epic-grid" style="margin-top:12px">
         <ul class="epic-list">
@@ -462,6 +476,7 @@
       <div class="prog-wrap">
         <div class="prog-label"><span>Epic progress</span><span>2 done · 6 in progress · 3 to do</span></div>
         <div class="prog-bar"><div class="prog-fill" style="width:18%"></div></div>
+        <div class="ticket-stats">222 tickets · 200 done · 13 in progress</div>
       </div>
       <ul class="epic-list">
           <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13055" target="_blank">PROD-13055</a><span class="etitle">FCP Migration GlobalApp</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
@@ -538,6 +553,7 @@
       <div class="prog-wrap">
         <div class="prog-label"><span>Epic progress</span><span>2 done · 2 in progress · 11 to do</span></div>
         <div class="prog-bar"><div class="prog-fill" style="width:13%"></div></div>
+        <div class="ticket-stats">23 tickets · 18 done · 4 in progress</div>
       </div>
       <ul class="epic-list">
           <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13500" target="_blank">PROD-13500</a><span class="etitle">Available Actions</span><span class="edates">15 Jun → 17 Aug</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
@@ -602,6 +618,7 @@
       <div class="prog-wrap">
         <div class="prog-label"><span>Epic progress</span><span>1 done · 4 in progress · 14 to do</span></div>
         <div class="prog-bar"><div class="prog-fill" style="width:5%"></div></div>
+        <div class="ticket-stats">14 tickets · 8 done · 3 in progress</div>
       </div>
       <ul class="epic-list">
           <li class="has-tasks"><details class="epic-expand"><summary><span class="exp-arrow">▶</span><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-13256" target="_blank">PROD-13256</a><span class="etitle">Post-Sales Services APIs</span><span class="edates">—</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></summary>
@@ -678,6 +695,7 @@
       <div class="prog-wrap">
         <div class="prog-label"><span>Epic progress</span><span>3 done · 1 in progress · 0 to do</span></div>
         <div class="prog-bar"><div class="prog-fill" style="width:75%"></div></div>
+        <div class="ticket-stats">30 tickets · 27 done · 3 in progress</div>
       </div>
       <ul class="epic-list" style="margin-top:8px">
         <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12657" target="_blank">PROD-12657</a><span class="etitle">Discovery Global App Allianz Italy</span><span class="edates">24 Mar → 30 Jun</span><span class="espacer"></span><span class="badge badge-wip">In Progress</span></li>
@@ -707,6 +725,7 @@
       <div class="prog-wrap">
         <div class="prog-label"><span>Epic progress</span><span>1 done · 4 in progress · 0 to do</span></div>
         <div class="prog-bar"><div class="prog-fill" style="width:20%"></div></div>
+        <div class="ticket-stats">12 tickets · 10 done · 0 in progress</div>
       </div>
       <ul class="epic-list" style="margin-top:8px">
         <li><a class="ekey" href="https://sisu-agile.atlassian.net/browse/PROD-12890" target="_blank">PROD-12890</a><span class="etitle">Taalai Saparbaev Onboarding</span><span class="edates">27 Apr → 11 May</span><span class="espacer"></span><span class="badge badge-done">Done</span></li>
